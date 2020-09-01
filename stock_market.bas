@@ -101,6 +101,61 @@ For i = 2 To last_row
 
 Next i
 
+
+'challenges
+
+'set dimensions
+Dim greatest_percent_increase As Double
+Dim greatest_percent_decrease As Double
+Dim greatest_total_volume As Double
+
+'insert header titles
+    Cells(1, 15).Value = "Ticker"
+    Cells(1, 16).Value = "Value"
+    Cells(2, 14).Value = "Greatest % Increase"
+    Cells(3, 14).Value = "Greatest % Decrease"
+    Cells(4, 14).Value = "Greatest Total Volume"
+    
+'determining the last row of the dataset
+    last_row = Cells(Rows.Count, 9).End(xlUp).Row
+    
+'setting initial values of various variables
+    greatest_percent_increase = Cells(2, 11).Value
+    greatest_percent_increase_ticker = Cells(2, 9).Value
+    greatest_percent_decrease = Cells(2, 11).Value
+    greatest_percent_decrease_ticker = Cells(2, 9).Value
+    greatest_total_volume = Cells(2, 12).Value
+    greatest_total_volume_ticker = Cells(2, 9).Value
+    
+'loop through array of values
+    For i = 2 To last_row
+    
+    'set conditions
+    If Cells(i, 11).Value > greatest_percent_increase Then
+        greatest_percent_increase = Cells(i, 11).Value
+        greatest_percent_increase_ticker = Cells(i, 9).Value
+    End If
+    
+    If Cells(i, 11).Value < greatest_percent_decrease Then
+        greatest_percent_decrease = Cells(i, 11).Value
+        greatest_percent_decrease_ticker = Cells(i, 9).Value
+    End If
+        
+    If Cells(i, 12).Value > greatest_total_volume Then
+        greatest_total_volume = Cells(i, 12).Value
+        greatest_total_volume_ticker = Cells(i, 9).Value
+    End If
+    
+    Next i
+    
+'print results into the table
+    Cells(2, 15).Value = greatest_percent_increase_ticker
+    Cells(2, 16).Value = Format(greatest_percent_increase, "percent")
+    Cells(3, 15).Value = greatest_percent_decrease_ticker
+    Cells(3, 16).Value = Format(greatest_percent_decrease, "percent")
+    Cells(4, 15).Value = greatest_total_volume_ticker
+    Cells(4, 16).Value = greatest_total_volume
+    
 Next ws
 
 End Sub
